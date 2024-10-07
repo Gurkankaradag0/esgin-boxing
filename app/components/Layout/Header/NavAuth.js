@@ -45,7 +45,7 @@ const NavAuth = () => {
                         <DropdownMenuLabel className='select-none'>{user.email}</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem onClick={() => router.push('/admin')}>Admin Sayfası</DropdownMenuItem>
+                            {user.isAdmin && <DropdownMenuItem onClick={() => router.push('/admin')}>Admin Sayfası</DropdownMenuItem>}
                         </DropdownMenuGroup>
                         <DropdownMenuGroup>
                             <DropdownMenuItem
