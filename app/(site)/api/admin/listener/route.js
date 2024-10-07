@@ -3,6 +3,8 @@ import Member from '@/models/Members'
 import Payment from '@/models/Payments'
 import mongoose from 'mongoose'
 
+export const dynamic = 'force-dynamic'
+
 export const GET = async (req) => {
     const { readable, writable } = new TransformStream()
     const writer = writable.getWriter()
