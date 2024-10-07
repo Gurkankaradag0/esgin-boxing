@@ -18,6 +18,8 @@ export const POST = async (req) => {
         return NextResponse.json({ error: 'Invalid credentials' }, { status: 400 })
     }
 
+    delete user._doc.password
+
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET || 'secret', { expiresIn: '7d' })
     const response = NextResponse.json({ user: { ...user._doc, token: { accessToken: token } }, message: 'Login successful' })
     response.cookies.set('access-token', token, { maxAge: 604800, httpOnly: true, path: '/', sameSite: 'strict' })

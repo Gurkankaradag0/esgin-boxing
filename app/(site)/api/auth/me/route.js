@@ -14,7 +14,7 @@ export const GET = async (req) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret')
         await dbConnect()
-        const user = await User.findById(decoded.userId).select('email isAdmin')
+        const user = await User.findById(decoded.userId).select('name email isAdmin')
 
         return NextResponse.json({ user: { ...user._doc }, message: 'Successful' }, { status: 200 })
     } catch (err) {

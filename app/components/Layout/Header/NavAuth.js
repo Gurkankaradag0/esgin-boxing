@@ -1,113 +1,65 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+
 import { Logout } from '@/services/AuthServices'
 import { clearUser, useAuth } from '@/store/authStore'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import classNames from 'classnames'
 import { UserRound } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useMemo } from 'react'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
 
 const NavAuth = () => {
     const { user } = useAuth()
     const router = useRouter()
 
-    const items = useMemo(() => {
-        const _items = [
-            {
-                key: '0',
-                label: user?.email
-            },
-            {
-                type: 'divider'
-            },
-            {
-                key: '1',
-                label: 'Çıkış Yap',
-                danger: true,
-                onClick: async () => {
-                    const logoutRes = await Logout()
-                    if (logoutRes.ok) clearUser()
-                }
-            }
-        ]
-
-        if (user?.isAdmin) {
-            return [
-                ..._items.slice(0, 1),
-                {
-                    key: '2',
-                    label: 'Admin Sayfası',
-                    onClick: () => router.push('/admin')
-                },
-                ..._items.slice(1)
-            ]
-        }
-
-        return _items
-    }, [user])
-
     return (
         <div className='flex justify-center items-center gap-2'>
             {!user ? (
                 <div className='flex justify-center items-center gap-2 max-xl:gap-1.5'>
-                    <Link
-                        href='/auth/login'
-                        className='text-sm text-semibold py-2 px-4 max-xl:px-3 max-lg:px-2 bg-[#f9f9f9] dark:bg-[#FFFFFF] text-black dark:text-[#0F0F0F] border border-solid border-[#dadada] hover:bg-[#f9f8f8] transition-colors duration-300 text-center rounded-full whitespace-nowrap max-[330px]:hidden'
-                    >
-                        Giriş Yap
+                    <Link href='/auth/login'>
+                        <Button variant='secondary'>Giriş Yap</Button>
                     </Link>
-                    <Link
-                        href='/auth/register'
-                        className='text-sm text-semibold py-2 px-4 max-xl:px-3 max-lg:px-2 bg-[#1d1d1b] dark:bg-[#0F0F0F] text-white border border-solid border-[#dadada] dark:border-white hover:bg-[#f9f8f8] hover:text-black transition-colors duration-300 text-center rounded-full whitespace-nowrap'
-                    >
-                        Kayıt Ol
+                    <Link href='/auth/register'>
+                        <Button variant='outline'>Kayıt Ol</Button>
                     </Link>
                 </div>
             ) : (
-                <Menu>
-                    <MenuButton className='flex justify-end items-center gap-4'>
-                        <div className='rounded-full w-8 h-8 border border-solid border-black dark:border-white flex justify-center items-center bg-transparent overflow-hidden'>
-                            <UserRound size={18} />
-                        </div>
-                        <span className='text-sm leading-4 font-semibold text-ellipsis max-w-[125px] whitespace-nowrap overflow-hidden max-[360px]:hidden'>
-                            {user.email}
-                        </span>
-                    </MenuButton>
-                    <MenuItems
-                        transition
-                        anchor='bottom end'
-                        className='w-52 origin-top-right rounded-xl border border-white/5 bg-black/10 p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 dark:bg-white/10 mt-2'
+                <DropdownMenu>
+                    <DropdownMenuTrigger className='flex justify-center items-center gap-2 outline-none'>
+                        <UserRound size={18} />
+                        {user.name}
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                        sideOffset={10}
+                        align='end'
                     >
-                        {items.map((item, index) => {
-                            if (item?.type === 'divider')
-                                return (
-                                    <div
-                                        key={index}
-                                        className='my-1 h-px bg-white/5'
-                                    />
-                                )
-                            return (
-                                <MenuItem
-                                    key={index}
-                                    as='button'
-                                    className={classNames(
-                                        'group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 overflow-hidden text-ellipsis whitespace-nowrap',
-                                        {
-                                            'data-[focus]:bg-white/10': item?.onClick || item?.path,
-                                            'cursor-default': !item?.onClick && !item?.path,
-                                            'text-red-400': item?.danger
-                                        }
-                                    )}
-                                    onClick={item?.onClick}
-                                >
-                                    {item.label}
-                                </MenuItem>
-                            )
-                        })}
-                    </MenuItems>
-                </Menu>
+                        <DropdownMenuLabel className='select-none'>{user.email}</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem onClick={() => router.push('/admin')}>Admin Sayfası</DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem
+                                onClick={async () => {
+                                    const logoutRes = await Logout()
+                                    if (logoutRes.ok) clearUser()
+                                }}
+                                className='text-destructive'
+                            >
+                                Çıkış Yap
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             )}
         </div>
     )
