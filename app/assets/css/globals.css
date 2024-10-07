@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background: 60 10% 95%;
+    --foreground: 60 10% 5%;
+    --card: 60 10% 97%;
+    --card-foreground: 60 10% 5%;
+    --popover: 60 10% 97%;
+    --popover-foreground: 60 10% 5%;
+    --primary: 220 90% 50%;
+    --primary-foreground: 220 90% 98%;
+    --secondary: 120 90% 40%;
+    --secondary-foreground: 120 90% 98%;
+    --muted: 60 10% 85%;
+    --muted-foreground: 60 10% 45%;
+    --accent: 30 90% 50%;
+    --accent-foreground: 30 90% 98%;
+    --destructive: 0 90% 50%;
+    --destructive-foreground: 0 90% 98%;
+    --border: 60 10% 75%;
+    --input: 60 10% 75%;
+    --ring: 220 90% 50%;
+    --radius: 0.375rem;
+    --chart-1: 220 90% 50%;
+    --chart-2: 120 90% 40%;
+    --chart-3: 30 90% 50%;
+    --chart-4: 280 90% 50%;
+    --chart-5: 180 90% 40%;
+}
+
+.dark {
+    --background: 240 10% 5%;
+    --foreground: 60 10% 95%;
+    --card: 240 10% 7%;
+    --card-foreground: 60 10% 95%;
+    --popover: 240 10% 7%;
+    --popover-foreground: 60 10% 95%;
+    --primary: 220 90% 60%;
+    --primary-foreground: 220 90% 10%;
+    --secondary: 120 90% 50%;
+    --secondary-foreground: 120 90% 10%;
+    --muted: 240 10% 20%;
+    --muted-foreground: 60 10% 75%;
+    --accent: 30 90% 60%;
+    --accent-foreground: 30 90% 10%;
+    --destructive: 0 90% 60%;
+    --destructive-foreground: 0 90% 10%;
+    --border: 240 10% 30%;
+    --input: 240 10% 30%;
+    --ring: 220 90% 60%;
+    --chart-1: 220 90% 60%;
+    --chart-2: 120 90% 50%;
+    --chart-3: 30 90% 60%;
+    --chart-4: 280 90% 60%;
+    --chart-5: 180 90% 50%;
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    html,
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    /* html,
+    body {
+        @apply bg-white text-black dark:bg-black dark:text-white;
+    } */
+}
+
+@layer utilities {
+    .loader {
+        width: 120px;
+        aspect-ratio: 4;
+        --_g: no-repeat radial-gradient(circle closest-side, #000 90%, #0000);
+        background: var(--_g) 0% 50%, var(--_g) 50% 50%, var(--_g) 100% 50%;
+        background-size: calc(100% / 3) 100%;
+        animation: l7 1s infinite linear;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .loader {
+            --_g: no-repeat radial-gradient(circle closest-side, #fff 90%, #0000);
+        }
+    }
+
+    @keyframes l7 {
+        33% {
+            background-size: calc(100% / 3) 0%, calc(100% / 3) 100%, calc(100% / 3) 100%;
+        }
+        50% {
+            background-size: calc(100% / 3) 100%, calc(100% / 3) 0%, calc(100% / 3) 100%;
+        }
+        66% {
+            background-size: calc(100% / 3) 100%, calc(100% / 3) 100%, calc(100% / 3) 0%;
+        }
+    }
+
+    .sidebar-open {
+        overflow: hidden;
+    }
+
+    .sidebar-open .main-panel {
+        transform: translate3d(260px, 0, 0) !important;
+    }
+
+    @media screen and (max-width: 991px) {
+        .sidebar-translate3d {
+            transform: translate3d(-270px, 0, 0) !important;
+        }
+
+        .sidebar-open .sidebar-translate3d {
+            transform: translate3d(0, 0, 0) !important;
+        }
+    }
+}
