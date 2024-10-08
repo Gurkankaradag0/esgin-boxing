@@ -19,25 +19,55 @@ const PhoneNumberField = ({ form, name, label, ...props }) => {
                             {...field}
                         >
                             <InputOTPGroup>
-                                <InputOTPSlot index={0} />
-                                <InputOTPSlot index={1} />
-                                <InputOTPSlot index={2} />
+                                <InputOTPSlot
+                                    index={0}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
+                                <InputOTPSlot
+                                    index={1}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
+                                <InputOTPSlot
+                                    index={2}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
                             </InputOTPGroup>
-                            <InputOTPSeparator />
+                            <InputOTPSeparator className='max-[512px]:hidden' />
                             <InputOTPGroup>
-                                <InputOTPSlot index={3} />
-                                <InputOTPSlot index={4} />
-                                <InputOTPSlot index={5} />
+                                <InputOTPSlot
+                                    index={3}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
+                                <InputOTPSlot
+                                    index={4}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
+                                <InputOTPSlot
+                                    index={5}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
                             </InputOTPGroup>
-                            <InputOTPSeparator />
+                            <InputOTPSeparator className='max-[512px]:hidden' />
                             <InputOTPGroup>
-                                <InputOTPSlot index={6} />
-                                <InputOTPSlot index={7} />
+                                <InputOTPSlot
+                                    index={6}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
+                                <InputOTPSlot
+                                    index={7}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
                             </InputOTPGroup>
-                            <InputOTPSeparator />
+                            <InputOTPSeparator className='max-[512px]:hidden' />
                             <InputOTPGroup>
-                                <InputOTPSlot index={8} />
-                                <InputOTPSlot index={9} />
+                                <InputOTPSlot
+                                    index={8}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
+                                <InputOTPSlot
+                                    index={9}
+                                    className='max-[440px]:w-8 max-[400px]:w-7 max-[360px]:w-6 max-[320px]:w-5'
+                                />
                             </InputOTPGroup>
                         </InputOTP>
                     </FormControl>
