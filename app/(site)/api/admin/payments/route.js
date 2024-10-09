@@ -18,10 +18,16 @@ export const GET = async (req) => {
 
         if (!user._doc.isAdmin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-        const payments = await Payment.find({}).populate({
-            path: 'author',
-            select: 'email'
-        })
+        const payments = await Payment.find({}).populate([
+            {
+                path: 'author',
+                select: 'name email'
+            },
+            {
+                path: 'member',
+                select: 'name'
+            }
+        ])
 
         return NextResponse.json({ payments }, { status: 200 })
     } catch (err) {

@@ -24,7 +24,22 @@ export const GET = async (req) => {
 
     paymentsStream.on('change', async (change) => {
         if (change.operationType === 'insert') {
-            change.fullDocument = (await Payment.findById(change.documentKey._id).populate(['author', 'member'], 'name email'))._doc
+            try {
+                change.fullDocument = (
+                    await Payment.findById(change.documentKey._id).populate([
+                        {
+                            path: 'author',
+                            select: 'name email'
+                        },
+                        {
+                            path: 'member',
+                            select: 'name'
+                        }
+                    ])
+                )._doc
+            } catch (err) {
+                console.log(err)
+            }
         }
         writer.write(`data: ${JSON.stringify(change)}\n\n`)
     })
