@@ -131,7 +131,7 @@ const Members = () => {
             columns={columns}
             filterElement={({ table }) => (
                 <Input
-                    placeholder='name'
+                    placeholder='İsime göre filtrele...'
                     value={table.getColumn('name')?.getFilterValue() ?? ''}
                     onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
                     className='max-w-sm'
