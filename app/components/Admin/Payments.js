@@ -76,9 +76,6 @@ const Payments = () => {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align='end'>
-                            {/* <DropdownMenuItem onClick={() => navigator.clipboard.writeText(member.phoneNumber)}>
-                                Telefon numarasını kopyala
-                            </DropdownMenuItem> */}
                             <DropdownMenuItem asChild>
                                 <CreatePayment
                                     trigger='Düzenle'

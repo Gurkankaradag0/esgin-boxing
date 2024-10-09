@@ -128,8 +128,14 @@ const Members = () => {
         <DataTable
             data={members}
             columns={columns}
-            filter='name'
-            filterPlaceholder='İsime göre filtrele...'
+            filterElement={({ table }) => (
+                <Input
+                    placeholder='name'
+                    value={table.getColumn('name')?.getFilterValue() ?? ''}
+                    onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+                    className='max-w-sm'
+                />
+            )}
         />
     )
 }

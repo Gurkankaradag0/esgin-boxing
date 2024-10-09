@@ -9,7 +9,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { Input } from './input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table'
 
-const DataTable = ({ data, columns, filter, filterPlaceholder }) => {
+const DataTable = ({ data, columns, filterElement }) => {
     const [sorting, setSorting] = React.useState([])
     const [columnFilters, setColumnFilters] = React.useState([])
     const [columnVisibility, setColumnVisibility] = React.useState({})
@@ -37,12 +37,7 @@ const DataTable = ({ data, columns, filter, filterPlaceholder }) => {
     return (
         <div className='w-full'>
             <div className='flex items-center py-4'>
-                <Input
-                    placeholder={filterPlaceholder}
-                    value={table.getColumn(filter)?.getFilterValue() ?? ''}
-                    onChange={(event) => table.getColumn(filter)?.setFilterValue(event.target.value)}
-                    className='max-w-sm'
-                />
+                {filterElement && (typeof filterElement === 'function' ? filterElement({ table }) : filterElement)}
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button
