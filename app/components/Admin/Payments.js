@@ -7,6 +7,7 @@ import { useAdminStore } from '@/store/adminStore'
 import { format } from 'date-fns'
 import { tr } from 'date-fns/locale'
 import { Button } from '../ui/button'
+import { Input } from '../ui/input'
 import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { DelPayment } from '@/services/AdminServices'
@@ -39,24 +40,26 @@ const Payments = () => {
             )
         },
         {
-            accessorKey: 'member',
+            id: 'member',
+            accessorKey: 'member.name',
             header: () => (
                 <span className='whitespace-nowrap'>
                     Üye
                     <div className='hidden' />
                 </span>
             ),
-            cell: ({ row }) => row.getValue('member')?.name ?? ''
+            cell: ({ row }) => row.getValue('member') ?? ''
         },
         {
-            accessorKey: 'author',
+            id: 'author',
+            accessorKey: 'author.name',
             header: () => (
                 <span className='whitespace-nowrap'>
                     Kayıt Yapan
                     <div className='hidden' />
                 </span>
             ),
-            cell: ({ row }) => row.getValue('author')?.name ?? ''
+            cell: ({ row }) => row.getValue('author') ?? ''
         },
         {
             id: 'actions',
@@ -100,8 +103,14 @@ const Payments = () => {
         <DataTable
             data={payments}
             columns={columns}
-            filter='member'
-            filterPlaceholder='İsime göre filtrele...'
+            filterElement={({ table }) => (
+                <Input
+                    placeholder='Üye ismine göre filtrele...'
+                    value={table.getColumn('member')?.getFilterValue() ?? ''}
+                    onChange={(event) => table.getColumn('member')?.setFilterValue(event.target.value)}
+                    className='max-w-sm'
+                />
+            )}
         />
     )
 }

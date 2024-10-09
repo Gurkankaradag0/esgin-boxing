@@ -75,14 +75,15 @@ const Members = () => {
             cell: ({ row }) => row.getValue('phoneNumber')
         },
         {
-            accessorKey: 'author',
+            id: 'author',
+            accessorKey: 'author.name',
             header: () => (
                 <span className='whitespace-nowrap'>
                     Kayıt Alan
                     <div className='hidden' />
                 </span>
             ),
-            cell: ({ row }) => row.getValue('author')?.name ?? ''
+            cell: ({ row }) => row.getValue('author')
         },
         {
             id: 'actions',
