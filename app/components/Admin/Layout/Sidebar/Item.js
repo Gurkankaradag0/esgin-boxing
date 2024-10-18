@@ -1,12 +1,13 @@
 'use client'
 
-import { closeSidebar } from '@/store/themeStore'
+import { closeSidebar, useThemeStore } from '@/store/themeStore'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const Item = ({ item }) => {
     const pathname = usePathname()
+    const { admin } = useThemeStore()
 
     return (
         <li className='relative list-item'>
@@ -18,7 +19,7 @@ const Item = ({ item }) => {
                     'text-muted-foreground font-semibold hover:bg-muted/50 hover:before:bg-secondary hover:before:opacity-100 hover:before:absolute hover:before:z-10 hover:before:w-[3px] hover:before:h-full hover:before:content-[""] hover:before:left-0 hover:before:top-0':
                         pathname !== item.pathname
                 })}
-                onClick={closeSidebar}
+                onClick={() => admin.sidebar.isOpen && closeSidebar()}
             >
                 <div
                     className={classNames('flex justify-center items-center', {

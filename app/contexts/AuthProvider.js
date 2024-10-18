@@ -22,7 +22,6 @@ const AuthProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        console.log(user, loading, pathname)
         if (user && fetching && loading) {
             if (pathname.startsWith('/admin') && !user.isAdmin) {
                 router.push('/')
@@ -41,12 +40,8 @@ const AuthProvider = ({ children }) => {
             if (pathname.startsWith('/admin')) {
                 router.push('/')
             }
-        } else if (user && fetching && !loading) {
-            if (pathname.includes('login') || pathname.includes('register')) {
-                router.push('/')
-            }
         }
-    }, [user, fetching, loading, pathname])
+    }, [user, fetching, pathname])
 
     if (pathname !== '/' && loading) return <Loader />
 
