@@ -4,7 +4,7 @@ import { DashIcon } from '@radix-ui/react-icons'
 import { OTPInput, OTPInputContext } from 'input-otp'
 
 import { cn } from '@/utils/helper'
-import { forwardRef } from 'react'
+import { forwardRef, useContext } from 'react'
 
 const InputOTP = forwardRef(({ className, containerClassName, ...props }, ref) => (
     <OTPInput
