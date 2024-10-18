@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useToast } from '@/hooks/use-toast'
-import { addMember, addPayment, delMember, delPayment, updateMember, updatePayment } from '@/store/adminStore'
+import { addLesson, addMember, addPayment, delLesson, delMember, delPayment, updateLesson, updateMember, updatePayment } from '@/store/adminStore'
 import { format } from 'date-fns'
 import { tr } from 'date-fns/locale'
 
@@ -29,6 +29,12 @@ const ListenerProvider = ({ children }) => {
                         title: 'Ödeme Eklendi',
                         description: format(new Date(), 'PPP', { locale: tr })
                     })
+                } else if (ns.coll === 'lessons') {
+                    addLesson(fullDocument)
+                    toast({
+                        title: 'Ders Eklendi',
+                        description: format(new Date(), 'PPP', { locale: tr })
+                    })
                 }
             } else if (operationType === 'update') {
                 if (ns.coll === 'members') {
@@ -43,6 +49,12 @@ const ListenerProvider = ({ children }) => {
                         title: 'Ödeme Düzenlendi',
                         description: format(new Date(), 'PPP', { locale: tr })
                     })
+                } else if (ns.coll === 'lessons') {
+                    updateLesson(documentKey._id, updateDescription.updatedFields)
+                    toast({
+                        title: 'Ders Düzenlendi',
+                        description: format(new Date(), 'PPP', { locale: tr })
+                    })
                 }
             } else if (operationType === 'delete') {
                 if (ns.coll === 'members') {
@@ -55,6 +67,12 @@ const ListenerProvider = ({ children }) => {
                     delPayment(documentKey._id)
                     toast({
                         title: 'Ödeme Silindi',
+                        description: format(new Date(), 'PPP', { locale: tr })
+                    })
+                } else if (ns.coll === 'lessons') {
+                    delLesson(documentKey._id)
+                    toast({
+                        title: 'Ders Silindi',
                         description: format(new Date(), 'PPP', { locale: tr })
                     })
                 }

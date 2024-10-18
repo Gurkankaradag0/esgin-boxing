@@ -1,4 +1,4 @@
-import { HandCoins, LayoutDashboard, Settings, UsersRound } from 'lucide-react'
+import { CalendarDays, HandCoins, LayoutDashboard, Settings, UsersRound } from 'lucide-react'
 
 export const ADMIN_SIDEBAR_ITEMS = [
     {
@@ -6,6 +6,13 @@ export const ADMIN_SIDEBAR_ITEMS = [
         label: 'Ana Sayfa',
         pathname: '/admin',
         icon: <LayoutDashboard size={24} />,
+        sidebar: true
+    },
+    {
+        name: 'timetable',
+        label: 'Ders Programı',
+        pathname: '/admin/timetable',
+        icon: <CalendarDays size={24} />,
         sidebar: true
     },
     {

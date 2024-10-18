@@ -1,4 +1,5 @@
 import dbConnect from '@/lib/mongodb'
+import Lesson from '@/models/Lessons'
 import Member from '@/models/Members'
 import Payment from '@/models/Payments'
 import mongoose from 'mongoose'
@@ -12,8 +13,10 @@ export const GET = async (req) => {
     await dbConnect()
     const membersCollection = mongoose.connection.collection('members')
     const paymentsCollection = mongoose.connection.collection('payments')
+    const lessonsCollection = mongoose.connection.collection('lessons')
     const membersStream = membersCollection.watch()
     const paymentsStream = paymentsCollection.watch()
+    const lessonsStream = lessonsCollection.watch()
 
     membersStream.on('change', async (change) => {
         if (change.operationType === 'insert') {
@@ -44,9 +47,32 @@ export const GET = async (req) => {
         writer.write(`data: ${JSON.stringify(change)}\n\n`)
     })
 
+    lessonsStream.on('change', async (change) => {
+        if (change.operationType === 'insert') {
+            try {
+                change.fullDocument = (
+                    await Lesson.findById(change.documentKey._id).populate([
+                        {
+                            path: 'author',
+                            select: 'name email'
+                        },
+                        {
+                            path: 'members',
+                            select: 'name'
+                        }
+                    ])
+                )._doc
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        writer.write(`data: ${JSON.stringify(change)}\n\n`)
+    })
+
     req.signal.onabort = () => {
         membersStream.close()
         paymentsStream.close()
+        lessonsStream.close()
         writer.close()
     }
 

@@ -1,19 +1,19 @@
 'use client'
-import * as React from 'react'
+
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import { Command as CommandPrimitive } from 'cmdk'
 
 import { cn } from '@/utils/helper'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { forwardRef } from 'react'
 
-const Command = React.forwardRef(({ className, ...props }, ref) => (
+const Command = forwardRef(({ className, ...props }, ref) => (
     <CommandPrimitive
         ref={ref}
         className={cn('flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground', className)}
         {...props}
     />
 ))
-Command.displayName = CommandPrimitive.displayName
 
 const CommandDialog = ({ children, ...props }) => {
     return (
@@ -27,7 +27,7 @@ const CommandDialog = ({ children, ...props }) => {
     )
 }
 
-const CommandInput = React.forwardRef(({ className, ...props }, ref) => (
+const CommandInput = forwardRef(({ className, ...props }, ref) => (
     <div
         className='flex items-center border-b px-3'
         cmdk-input-wrapper=''
@@ -44,9 +44,7 @@ const CommandInput = React.forwardRef(({ className, ...props }, ref) => (
     </div>
 ))
 
-CommandInput.displayName = CommandPrimitive.Input.displayName
-
-const CommandList = React.forwardRef(({ className, ...props }, ref) => (
+const CommandList = forwardRef(({ className, ...props }, ref) => (
     <CommandPrimitive.List
         ref={ref}
         className={cn('max-h-[300px] overflow-y-auto overflow-x-hidden', className)}
@@ -54,9 +52,7 @@ const CommandList = React.forwardRef(({ className, ...props }, ref) => (
     />
 ))
 
-CommandList.displayName = CommandPrimitive.List.displayName
-
-const CommandEmpty = React.forwardRef((props, ref) => (
+const CommandEmpty = forwardRef((props, ref) => (
     <CommandPrimitive.Empty
         ref={ref}
         className='py-6 text-center text-sm'
@@ -64,9 +60,7 @@ const CommandEmpty = React.forwardRef((props, ref) => (
     />
 ))
 
-CommandEmpty.displayName = CommandPrimitive.Empty.displayName
-
-const CommandGroup = React.forwardRef(({ className, ...props }, ref) => (
+const CommandGroup = forwardRef(({ className, ...props }, ref) => (
     <CommandPrimitive.Group
         ref={ref}
         className={cn(
@@ -77,18 +71,15 @@ const CommandGroup = React.forwardRef(({ className, ...props }, ref) => (
     />
 ))
 
-CommandGroup.displayName = CommandPrimitive.Group.displayName
-
-const CommandSeparator = React.forwardRef(({ className, ...props }, ref) => (
+const CommandSeparator = forwardRef(({ className, ...props }, ref) => (
     <CommandPrimitive.Separator
         ref={ref}
         className={cn('-mx-1 h-px bg-border', className)}
         {...props}
     />
 ))
-CommandSeparator.displayName = CommandPrimitive.Separator.displayName
 
-const CommandItem = React.forwardRef(({ className, ...props }, ref) => (
+const CommandItem = forwardRef(({ className, ...props }, ref) => (
     <CommandPrimitive.Item
         ref={ref}
         className={cn(
@@ -99,8 +90,6 @@ const CommandItem = React.forwardRef(({ className, ...props }, ref) => (
     />
 ))
 
-CommandItem.displayName = CommandPrimitive.Item.displayName
-
 const CommandShortcut = ({ className, ...props }) => {
     return (
         <span
@@ -109,6 +98,5 @@ const CommandShortcut = ({ className, ...props }) => {
         />
     )
 }
-CommandShortcut.displayName = 'CommandShortcut'
 
 export { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator }

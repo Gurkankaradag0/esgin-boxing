@@ -1,19 +1,18 @@
 'use client'
 
-import * as React from 'react'
 import { ChevronDownIcon } from '@radix-ui/react-icons'
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
 
 import { Button } from './button'
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from './dropdown-menu'
-import { Input } from './input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table'
+import { useState } from 'react'
 
 const DataTable = ({ data, columns, filterElement }) => {
-    const [sorting, setSorting] = React.useState([])
-    const [columnFilters, setColumnFilters] = React.useState([])
-    const [columnVisibility, setColumnVisibility] = React.useState({})
-    const [rowSelection, setRowSelection] = React.useState({})
+    const [sorting, setSorting] = useState([])
+    const [columnFilters, setColumnFilters] = useState([])
+    const [columnVisibility, setColumnVisibility] = useState({})
+    const [rowSelection, setRowSelection] = useState({})
 
     const table = useReactTable({
         data,

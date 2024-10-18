@@ -13,7 +13,7 @@ import SelectField from '@/components/Form/SelectField'
 import DatePickerField from '@/components/Form/DatePickerField'
 import { AddMember, UpdateMember } from '@/services/AdminServices'
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
 const CreateMemberSchema = z.object({
     name: z.string().min(3, 'Çok Kısa'),
@@ -74,6 +74,7 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
             <DialogContent className='flex flex-col max-w-fit'>
                 <DialogHeader>
                     <DialogTitle>{member ? 'Üye Düzenle' : 'Üye Ekle'}</DialogTitle>
+                    <DialogDescription />
                 </DialogHeader>
                 <Form {...form}>
                     <form
@@ -85,17 +86,20 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
                             name='name'
                             form={form}
                             label='İsim'
+                            disabled={disabled}
                         />
                         <DatePickerField
                             name='registrationDate'
                             form={form}
                             label='Kayıt Tarihi'
                             portal={false}
+                            disabled={disabled}
                         />
                         <PhoneNumberField
                             name='phoneNumber'
                             form={form}
                             label='Telefon Numarası'
+                            disabled={disabled}
                         />
                         <SelectField
                             name='courseType'
@@ -111,6 +115,7 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
                                     label: 'Özel'
                                 }
                             ]}
+                            disabled={disabled}
                         />
                         <InputField
                             name='amountToBePaid'
@@ -118,6 +123,7 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
                             label='Ödenecek Tutar'
                             type='number'
                             min={0}
+                            disabled={disabled}
                         />
 
                         <Button

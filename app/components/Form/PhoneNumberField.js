@@ -17,6 +17,7 @@ const PhoneNumberField = ({ form, name, label, ...props }) => {
                             maxLength={10}
                             pattern={REGEXP_ONLY_DIGITS}
                             {...field}
+                            {...props}
                         >
                             <InputOTPGroup>
                                 <InputOTPSlot

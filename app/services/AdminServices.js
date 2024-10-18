@@ -93,3 +93,51 @@ export const DelPayment = async (_id) => {
 
     return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
 }
+
+export const GetLessons = async () => {
+    const res = await fetch('/api/admin/lessons', {
+        method: 'GET',
+        credentials: 'include'
+    })
+
+    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
+}
+
+export const AddLesson = async (values) => {
+    const res = await fetch('/api/admin/lessons/add', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+    })
+
+    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
+}
+
+export const UpdateLesson = async (values) => {
+    const res = await fetch('/api/admin/lessons/update', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+    })
+
+    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
+}
+
+export const DelLesson = async (_id) => {
+    const res = await fetch('/api/admin/lessons/del', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ _id })
+    })
+
+    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
+}

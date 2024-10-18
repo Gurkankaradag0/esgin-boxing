@@ -11,7 +11,7 @@ import SelectField from '@/components/Form/SelectField'
 import DatePickerField from '@/components/Form/DatePickerField'
 import { AddPayment, UpdatePayment } from '@/services/AdminServices'
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { useAdminStore } from '@/store/adminStore'
 
 const CreatePaymentSchema = z.object({
@@ -65,6 +65,7 @@ const CreatePayment = ({ trigger = 'Open Modal', triggerClassname, payment }) =>
             <DialogContent className='flex flex-col'>
                 <DialogHeader>
                     <DialogTitle>{payment ? 'Ödeme Düzenle' : 'Ödeme Ekle'}</DialogTitle>
+                    <DialogDescription />
                 </DialogHeader>
                 <Form {...form}>
                     <form
@@ -77,6 +78,7 @@ const CreatePayment = ({ trigger = 'Open Modal', triggerClassname, payment }) =>
                             form={form}
                             label='Ödeme Tarihi'
                             portal={false}
+                            disabled={disabled}
                         />
                         <SelectField
                             name='member'
@@ -86,6 +88,7 @@ const CreatePayment = ({ trigger = 'Open Modal', triggerClassname, payment }) =>
                                 value: member._id,
                                 label: member.name
                             }))}
+                            disabled={disabled}
                         />
 
                         <Button

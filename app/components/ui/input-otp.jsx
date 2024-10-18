@@ -1,12 +1,12 @@
 'use client'
 
-import * as React from 'react'
 import { DashIcon } from '@radix-ui/react-icons'
 import { OTPInput, OTPInputContext } from 'input-otp'
 
 import { cn } from '@/utils/helper'
+import { forwardRef } from 'react'
 
-const InputOTP = React.forwardRef(({ className, containerClassName, ...props }, ref) => (
+const InputOTP = forwardRef(({ className, containerClassName, ...props }, ref) => (
     <OTPInput
         ref={ref}
         containerClassName={cn('flex items-center gap-2 has-[:disabled]:opacity-50', containerClassName)}
@@ -14,19 +14,17 @@ const InputOTP = React.forwardRef(({ className, containerClassName, ...props }, 
         {...props}
     />
 ))
-InputOTP.displayName = 'InputOTP'
 
-const InputOTPGroup = React.forwardRef(({ className, ...props }, ref) => (
+const InputOTPGroup = forwardRef(({ className, ...props }, ref) => (
     <div
         ref={ref}
         className={cn('flex items-center', className)}
         {...props}
     />
 ))
-InputOTPGroup.displayName = 'InputOTPGroup'
 
-const InputOTPSlot = React.forwardRef(({ index, className, ...props }, ref) => {
-    const inputOTPContext = React.useContext(OTPInputContext)
+const InputOTPSlot = forwardRef(({ index, className, ...props }, ref) => {
+    const inputOTPContext = useContext(OTPInputContext)
     const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
 
     return (
@@ -48,9 +46,8 @@ const InputOTPSlot = React.forwardRef(({ index, className, ...props }, ref) => {
         </div>
     )
 })
-InputOTPSlot.displayName = 'InputOTPSlot'
 
-const InputOTPSeparator = React.forwardRef(({ ...props }, ref) => (
+const InputOTPSeparator = forwardRef(({ ...props }, ref) => (
     <div
         ref={ref}
         role='separator'
@@ -59,6 +56,5 @@ const InputOTPSeparator = React.forwardRef(({ ...props }, ref) => (
         <DashIcon />
     </div>
 ))
-InputOTPSeparator.displayName = 'InputOTPSeparator'
 
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }

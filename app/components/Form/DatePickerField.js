@@ -1,7 +1,7 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import DatePicker from '../ui/date-picker'
 
-const DatePickerField = ({ form, name, label, disabled, disabledDate, portal, ...props }) => {
+const DatePickerField = ({ form, name, label, disabledDate, portal, ...props }) => {
     return (
         <FormField
             control={form.control}
@@ -15,9 +15,9 @@ const DatePickerField = ({ form, name, label, disabled, disabledDate, portal, ..
                         <DatePicker
                             value={field.value}
                             onChange={field.onChange}
-                            disabled={disabled}
                             disabledDate={disabledDate}
                             portal={portal}
+                            {...props}
                         />
                     </FormControl>
                 </FormItem>

@@ -1,7 +1,7 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
+import MultipleSelector from '../ui/multi-selector'
 
-const SelectField = ({ form, name, label, values = [], ...props }) => {
+const MultiSelectField = ({ form, name, label, values = [], ...props }) => {
     return (
         <FormField
             control={form.control}
@@ -11,10 +11,23 @@ const SelectField = ({ form, name, label, values = [], ...props }) => {
                     <FormLabel className='flex justify-between items-center'>
                         {label}: <FormMessage />
                     </FormLabel>
-                    <Select
+                    <FormControl>
+                        <MultipleSelector
+                            selectFirstItem={false}
+                            defaultOptions={values}
+                            placeholder='Seçiniz'
+                            onChange={field.onChange}
+                            value={field.value}
+                            className='outline-none'
+                            emptyIndicator={
+                                <p className='text-center text-lg leading-10 text-gray-600 dark:text-gray-400'>Seçilecek öğe bulunamadı.</p>
+                            }
+                            {...props}
+                        />
+                    </FormControl>
+                    {/* <Select
                         onValueChange={field.onChange}
                         value={field.value}
-                        {...props}
                     >
                         <FormControl>
                             <SelectTrigger>
@@ -31,11 +44,11 @@ const SelectField = ({ form, name, label, values = [], ...props }) => {
                                 </SelectItem>
                             ))}
                         </SelectContent>
-                    </Select>
+                    </Select> */}
                 </FormItem>
             )}
         />
     )
 }
 
-export default SelectField
+export default MultiSelectField
