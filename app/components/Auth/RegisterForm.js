@@ -64,24 +64,28 @@ const RegisterForm = () => {
                     name='name'
                     form={form}
                     label='İsim'
+                    disabled={disabled}
                 />
                 <InputField
                     name='email'
                     form={form}
                     label='E-Posta'
                     type='email'
+                    disabled={disabled}
                 />
                 <InputField
                     name='password'
                     form={form}
                     label='Şifre'
                     type='password'
+                    disabled={disabled}
                 />
                 <InputField
                     name='repassword'
                     form={form}
                     label='Tekrar Şifre'
                     type='password'
+                    disabled={disabled}
                 />
 
                 <Button

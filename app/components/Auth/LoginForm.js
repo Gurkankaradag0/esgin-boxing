@@ -58,12 +58,14 @@ const LoginForm = () => {
                     form={form}
                     label='E-Posta'
                     type='email'
+                    disabled={disabled}
                 />
                 <InputField
                     name='password'
                     form={form}
                     label='Şifre'
                     type='password'
+                    disabled={disabled}
                 />
 
                 <Button
