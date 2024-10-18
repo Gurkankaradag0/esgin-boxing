@@ -82,7 +82,6 @@ const CreateLesson = ({ trigger = 'Open Modal', triggerClassname, lesson, day, h
             form.reset()
             setError('')
             setDisabled(false)
-            setOpen(false)
         }
     }, [modalRef.current])
 

@@ -25,26 +25,6 @@ const MultiSelectField = ({ form, name, label, values = [], ...props }) => {
                             {...props}
                         />
                     </FormControl>
-                    {/* <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                    >
-                        <FormControl>
-                            <SelectTrigger>
-                                <SelectValue placeholder='Seçiniz' />
-                            </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                            {values.map(({ value, label: SelectLabel }, index) => (
-                                <SelectItem
-                                    value={value}
-                                    key={index}
-                                >
-                                    {SelectLabel}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select> */}
                 </FormItem>
             )}
         />
