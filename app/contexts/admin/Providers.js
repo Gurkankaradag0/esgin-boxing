@@ -1,10 +1,11 @@
-import ListenerProvider from './ListenerProvider'
+// import ListenerProvider from './ListenerProvider'
 import MongoProvider from './MongoProvider'
 
 const Providers = ({ children }) => {
     return (
         <MongoProvider>
-            <ListenerProvider>{children}</ListenerProvider>
+            {/* <ListenerProvider>{children}</ListenerProvider> */}
+            {children}
         </MongoProvider>
     )
 }

@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import SelectField from '@/components/Form/SelectField'
 import DatePickerField from '@/components/Form/DatePickerField'
-import { AddPayment, UpdatePayment } from '@/services/AdminServices'
+import { AddPaymentAction, UpdatePaymentAction } from '@/actions/AdminActions'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { useAdminStore } from '@/store/adminStore'
@@ -47,7 +47,7 @@ const CreatePayment = ({ trigger = 'Open Modal', triggerClassname, payment }) =>
     const onSubmit = async (values) => {
         setError('')
         setDisabled(true)
-        const response = payment ? await UpdatePayment({ ...values, _id: payment._id }) : await AddPayment(values)
+        const response = payment ? await UpdatePaymentAction({ ...values, _id: payment._id }) : await AddPaymentAction(values)
         !response.ok && setError(response.status === 401 ? 'Yetkisiz işlem.' : 'Bir sorun ile karşılaşıldı lütfen sonra tekrar deneyiniz.')
         if (response.ok) {
             form.reset()

@@ -6,23 +6,11 @@ import { useEffect } from 'react'
 
 const MongoProvider = ({ children }) => {
     useEffect(() => {
-        GetMembers()
-            .then((response) => {
-                if (response.ok) setMembers(response.data.members)
-            })
-            .catch(console.error)
-
-        GetPayments()
-            .then((response) => {
-                if (response.ok) setPayments(response.data.payments)
-            })
-            .catch(console.error)
-
-        GetLessons()
-            .then((response) => {
-                if (response.ok) setLessons(response.data.lessons)
-            })
-            .catch(console.error)
+        Promise.all([GetMembers(), GetPayments(), GetLessons()]).then(([members, payments, lessons]) => {
+            members.ok && setMembers(members.data.members)
+            payments.ok && setPayments(payments.data.payments)
+            lessons.ok && setLessons(lessons.data.lessons)
+        })
     }, [])
 
     return children

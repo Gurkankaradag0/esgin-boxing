@@ -11,7 +11,7 @@ import InputField from '@/components/Form/InputField'
 import PhoneNumberField from '@/components/Form/PhoneNumberField'
 import SelectField from '@/components/Form/SelectField'
 import DatePickerField from '@/components/Form/DatePickerField'
-import { AddMember, UpdateMember } from '@/services/AdminServices'
+import { AddMemberAction, UpdateMemberAction } from '@/actions/AdminActions'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
@@ -56,7 +56,7 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
     const onSubmit = async (values) => {
         setError('')
         setDisabled(true)
-        const response = member ? await UpdateMember({ ...values, _id: member._id }) : await AddMember(values)
+        const response = member ? await UpdateMemberAction({ ...values, _id: member._id }) : await AddMemberAction(values)
         !response.ok && setError(response.status === 401 ? 'Yetkisiz işlem.' : 'Bir sorun ile karşılaşıldı lütfen sonra tekrar deneyiniz.')
         if (response.ok) {
             form.reset()

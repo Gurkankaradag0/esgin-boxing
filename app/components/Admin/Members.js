@@ -10,8 +10,8 @@ import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
-import { DelMember } from '@/services/AdminServices'
 import CreateMember from './Modals/CreateMember'
+import { DelMemberAction } from '@/actions/AdminActions'
 
 const Members = () => {
     const { members } = useAdminStore()
@@ -116,7 +116,7 @@ const Members = () => {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                                 className='text-destructive'
-                                onClick={() => DelMember(member._id)}
+                                onClick={() => DelMemberAction(member._id)}
                             >
                                 Sil
                             </DropdownMenuItem>

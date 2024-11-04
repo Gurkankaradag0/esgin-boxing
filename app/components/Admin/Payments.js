@@ -10,7 +10,7 @@ import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
-import { DelPayment } from '@/services/AdminServices'
+import { DelPaymentAction } from '@/actions/AdminActions'
 import CreatePayment from './Modals/CreatePayment'
 
 const Payments = () => {
@@ -89,7 +89,7 @@ const Payments = () => {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                                 className='text-destructive'
-                                onClick={() => DelPayment(payment._id)}
+                                onClick={() => DelPaymentAction(payment._id)}
                             >
                                 Sil
                             </DropdownMenuItem>

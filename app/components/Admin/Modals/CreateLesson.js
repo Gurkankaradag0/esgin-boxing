@@ -8,7 +8,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import SelectField from '@/components/Form/SelectField'
-import { AddLesson, DelLesson, UpdateLesson } from '@/services/AdminServices'
+import { AddLessonAction, DelLessonAction, UpdateLessonAction } from '@/actions/AdminActions'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import MultiSelectField from '@/components/Form/MultiSelectField'
@@ -55,8 +55,14 @@ const CreateLesson = ({ trigger = 'Open Modal', triggerClassname, lesson, day, h
         setError('')
         setDisabled(true)
         const response = lesson
-            ? await UpdateLesson({ courseType: values.courseType, members: values.members.map((member) => member.value), day, hour, _id: lesson._id })
-            : await AddLesson({ courseType: values.courseType, members: values.members.map((member) => member.value), day, hour })
+            ? await UpdateLessonAction({
+                  courseType: values.courseType,
+                  members: values.members.map((member) => member.value),
+                  day,
+                  hour,
+                  _id: lesson._id
+              })
+            : await AddLessonAction({ courseType: values.courseType, members: values.members.map((member) => member.value), day, hour })
         !response.ok && setError(response.status === 401 ? 'Yetkisiz işlem.' : 'Bir sorun ile karşılaşıldı lütfen sonra tekrar deneyiniz.')
         if (response.ok) {
             form.reset()
@@ -68,7 +74,7 @@ const CreateLesson = ({ trigger = 'Open Modal', triggerClassname, lesson, day, h
     const onDelete = async () => {
         setError('')
         setDisabled(true)
-        const response = await DelLesson(lesson._id)
+        const response = await DelLessonAction(lesson._id)
         !response.ok && setError(response.status === 401 ? 'Yetkisiz işlem.' : 'Bir sorun ile karşılaşıldı lütfen sonra tekrar deneyiniz.')
         if (response.ok) {
             form.reset()
