@@ -18,7 +18,11 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang='tr'>
+        <html
+            lang='tr'
+            className='dark'
+            style={{ colorScheme: 'dark' }}
+        >
             <body className={`${inter.className} antialiased`}>
                 <Providers>
                     <main className='flex flex-col min-h-screen'>{children}</main>
