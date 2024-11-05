@@ -34,6 +34,13 @@ export const ADMIN_SIDEBAR_ITEMS = [
         label: 'Ayarlar',
         pathname: '/admin/settings',
         icon: <Settings size={24} />,
+        sidebar: true
+    },
+    {
+        name: 'user',
+        label: 'Ayarlar',
+        pathname: '/admin/user',
+        icon: <Settings size={24} />,
         sidebar: false
     }
 ]

@@ -1,3 +1,25 @@
+export const GetSettings = async () => {
+    const res = await fetch('/api/admin/settings', {
+        method: 'GET',
+        credentials: 'include'
+    })
+
+    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
+}
+
+export const UpdateSettings = async (values) => {
+    const res = await fetch('/api/admin/settings', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+    })
+
+    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
+}
+
 export const GetMembers = async () => {
     const res = await fetch('/api/admin/members', {
         method: 'GET',

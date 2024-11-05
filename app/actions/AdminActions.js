@@ -12,7 +12,8 @@ import {
     DelPayment,
     UpdateLesson,
     UpdateMember,
-    UpdatePayment
+    UpdatePayment,
+    UpdateSettings
 } from '@/services/AdminServices'
 import {
     addLesson,
@@ -21,18 +22,35 @@ import {
     delLesson,
     delMember,
     delPayment,
-    getAdminStore,
+    setMembers,
+    setSettings,
     updateLesson,
     updateMember,
     updatePayment
 } from '@/store/adminStore'
-import { getAuthStore } from '@/store/authStore'
+
+export const UpdateSettingsAction = async (values) => {
+    const response = await UpdateSettings(values)
+    if (response.ok) {
+        setSettings(response.data.settings)
+        setMembers(response.data.members)
+        toast({
+            title: 'Ayarlar Güncellendi',
+            description: format(new Date(), 'PPP', { locale: tr })
+        })
+    } else {
+        toast({
+            title: 'Ayarlar Güncellenemedi',
+            description: format(new Date(), 'PPP', { locale: tr })
+        })
+    }
+    return response
+}
 
 export const AddMemberAction = async (values) => {
     const response = await AddMember(values)
     if (response.ok) {
-        const author = getAuthStore().user
-        addMember({ ...response.data, author })
+        addMember(response.data)
         toast({
             title: 'Üye Eklendi',
             description: format(new Date(), 'PPP', { locale: tr })
@@ -83,9 +101,7 @@ export const DelMemberAction = async (member_id) => {
 export const AddPaymentAction = async (values) => {
     const response = await AddPayment(values)
     if (response.ok) {
-        const author = getAuthStore().user
-        const member = getAdminStore().members.find((mb) => mb._id === response.data.member)
-        addPayment({ ...response.data, author, member })
+        addPayment(response.data)
         toast({
             title: 'Ödeme Eklendi',
             description: format(new Date(), 'PPP', { locale: tr })
@@ -102,8 +118,7 @@ export const AddPaymentAction = async (values) => {
 export const UpdatePaymentAction = async (values) => {
     const response = await UpdatePayment(values)
     if (response.ok) {
-        const members = getAdminStore().members.find((mb) => mb._id === response.data.member)
-        updatePayment(response.data._id, { ...response.data, members })
+        updatePayment(response.data._id, response.data)
         toast({
             title: 'Ödeme Düzenlendi',
             description: format(new Date(), 'PPP', { locale: tr })
@@ -137,9 +152,7 @@ export const DelPaymentAction = async (member_id) => {
 export const AddLessonAction = async (values) => {
     const response = await AddLesson(values)
     if (response.ok) {
-        const author = getAuthStore().user
-        const members = getAdminStore().members.filter((mb) => response.data.members.includes(mb._id))
-        addLesson({ ...response.data, author, members })
+        addLesson(response.data)
         toast({
             title: 'Ders Eklendi',
             description: format(new Date(), 'PPP', { locale: tr })
@@ -156,8 +169,7 @@ export const AddLessonAction = async (values) => {
 export const UpdateLessonAction = async (values) => {
     const response = await UpdateLesson(values)
     if (response.ok) {
-        const members = getAdminStore().members.filter((mb) => response.data.members.includes(mb._id))
-        updateLesson(response.data._id, { ...response.data, members })
+        updateLesson(response.data._id, response.data)
         toast({
             title: 'Ders Düzenlendi',
             description: format(new Date(), 'PPP', { locale: tr })

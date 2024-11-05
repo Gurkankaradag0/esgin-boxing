@@ -23,8 +23,14 @@ export const POST = async (req) => {
             { _id },
             {
                 paymentDate,
-                member,
-                author: user._doc._id
+                member
+            },
+            {
+                returnDocument: 'after',
+                populate: [
+                    { path: 'member', select: '_id name' },
+                    { path: 'author', select: '_id name email' }
+                ]
             }
         )
 

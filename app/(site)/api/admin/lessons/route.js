@@ -21,11 +21,11 @@ export const GET = async (req) => {
         const lessons = await Lesson.find({}).populate([
             {
                 path: 'author',
-                select: 'name email'
+                select: '_id name email'
             },
             {
                 path: 'members',
-                select: 'name'
+                select: '_id name'
             }
         ])
 

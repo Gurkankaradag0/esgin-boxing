@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import dbConnect from '@/lib/mongodb'
 import User from '@/models/User'
 import Lesson from '@/models/Lessons'
+import Member from '@/models/Members'
 
 export const POST = async (req) => {
     const token = req.cookies.get('access-token')?.value
@@ -13,7 +14,7 @@ export const POST = async (req) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret')
         await dbConnect()
-        const user = await User.findById(decoded.userId).select('_id isAdmin')
+        const user = await User.findById(decoded.userId)
 
         if (!user._doc.isAdmin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
@@ -27,7 +28,12 @@ export const POST = async (req) => {
             author: user._doc._id
         })
 
-        return NextResponse.json({ ...lesson._doc }, { status: 200 })
+        const memberDocs = (await Member.find({}).select('_id name')).filter((member) => members.includes(member._id.toString()))
+
+        return NextResponse.json(
+            { ...lesson._doc, members: memberDocs, author: { _id: user._id, name: user.name, email: user.email } },
+            { status: 200 }
+        )
     } catch (err) {
         console.log(err)
         return NextResponse.json({ error: 'Invalid token' }, { status: 401 })

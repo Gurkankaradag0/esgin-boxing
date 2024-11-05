@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -14,6 +14,7 @@ import DatePickerField from '@/components/Form/DatePickerField'
 import { AddMemberAction, UpdateMemberAction } from '@/actions/AdminActions'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { useAdminStore } from '@/store/adminStore'
 
 const CreateMemberSchema = z.object({
     name: z.string().min(3, 'Çok Kısa'),
@@ -33,6 +34,8 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
     const [disabled, setDisabled] = useState(false)
     const [error, setError] = useState('')
     const [open, setOpen] = useState(false)
+    const [oldAmountToBePaid, setOldAmountToBePaid] = useState(member?.amountToBePaid ?? 0)
+    const { settings } = useAdminStore()
 
     const form = useForm({
         resolver: zodResolver(CreateMemberSchema),
@@ -53,6 +56,16 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
               }
     })
 
+    const courseType = useWatch({
+        control: form.control,
+        name: 'courseType'
+    })
+
+    const amountToBePaid = useWatch({
+        control: form.control,
+        name: 'amountToBePaid'
+    })
+
     const onSubmit = async (values) => {
         setError('')
         setDisabled(true)
@@ -64,6 +77,16 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
         }
         setDisabled(false)
     }
+
+    useEffect(() => {
+        console.log(courseType)
+        if (courseType === 'group') {
+            setOldAmountToBePaid(amountToBePaid)
+            form.setValue('amountToBePaid', settings.groupPrice)
+        } else {
+            form.setValue('amountToBePaid', oldAmountToBePaid)
+        }
+    }, [courseType])
 
     return (
         <Dialog
@@ -123,7 +146,7 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
                             label='Ödenecek Tutar'
                             type='number'
                             min={0}
-                            disabled={disabled}
+                            disabled={disabled || courseType !== 'personal'}
                         />
 
                         <Button

@@ -25,8 +25,14 @@ export const POST = async (req) => {
                 day,
                 hour,
                 courseType,
-                members,
-                author: user._doc._id
+                members
+            },
+            {
+                returnDocument: 'after',
+                populate: [
+                    { path: 'author', select: '_id name email' },
+                    { path: 'members', select: '_id name' }
+                ]
             }
         )
 

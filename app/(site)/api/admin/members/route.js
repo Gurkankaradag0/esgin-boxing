@@ -20,7 +20,7 @@ export const GET = async (req) => {
 
         const members = await Member.find({}).populate({
             path: 'author',
-            select: 'name email'
+            select: '_id name email'
         })
 
         return NextResponse.json({ members }, { status: 200 })

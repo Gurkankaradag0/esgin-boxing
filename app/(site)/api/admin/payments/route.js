@@ -21,11 +21,11 @@ export const GET = async (req) => {
         const payments = await Payment.find({}).populate([
             {
                 path: 'author',
-                select: 'name email'
+                select: '_id name email'
             },
             {
                 path: 'member',
-                select: 'name'
+                select: '_id name'
             }
         ])
 

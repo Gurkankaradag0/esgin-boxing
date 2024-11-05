@@ -26,9 +26,9 @@ export const POST = async (req) => {
                 registrationDate,
                 phoneNumber,
                 courseType,
-                amountToBePaid,
-                author: user._doc._id
-            }
+                amountToBePaid
+            },
+            { returnDocument: 'after', populate: { path: 'author', select: '_id name email' } }
         )
 
         return NextResponse.json({ ...member._doc }, { status: 200 })

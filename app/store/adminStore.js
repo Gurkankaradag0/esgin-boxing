@@ -2,10 +2,12 @@ import { create } from 'zustand'
 import { useShallow } from 'zustand/react/shallow'
 
 const useAdmin = create((set, get) => ({
+    settings: {},
     members: [],
     payments: [],
     lessons: [],
     fetching: false,
+    setSettings: (settings) => set({ settings }),
     setMembers: (members) => set({ members }),
     setPayments: (payments) => set({ payments }),
     setLessons: (lessons) => set({ lessons }),
@@ -82,6 +84,7 @@ if (process.env.NODE_ENV === 'development') {
 export const useAdminStore = () =>
     useAdmin(
         useShallow((state) => ({
+            settings: state.settings,
             members: state.members,
             payments: state.payments,
             lessons: state.lessons,
@@ -92,6 +95,7 @@ export const useAdminStore = () =>
 // Actions
 export const getAdminStore = () => useAdmin.getState()
 
+export const setSettings = useAdmin.getState().setSettings
 export const setMembers = useAdmin.getState().setMembers
 export const setPayments = useAdmin.getState().setPayments
 export const setLessons = useAdmin.getState().setLessons
