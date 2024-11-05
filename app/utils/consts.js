@@ -30,6 +30,13 @@ export const ADMIN_SIDEBAR_ITEMS = [
         sidebar: true
     },
     {
+        name: 'expenses',
+        label: 'Giderler',
+        pathname: '/admin/expenses',
+        icon: <HandCoins size={24} />,
+        sidebar: true
+    },
+    {
         name: 'settings',
         label: 'Ayarlar',
         pathname: '/admin/settings',

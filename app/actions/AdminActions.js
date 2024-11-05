@@ -4,26 +4,32 @@ import { format } from 'date-fns'
 import { tr } from 'date-fns/locale'
 
 import {
+    AddExpense,
     AddLesson,
     AddMember,
     AddPayment,
+    DelExpense,
     DelLesson,
     DelMember,
     DelPayment,
+    UpdateExpense,
     UpdateLesson,
     UpdateMember,
     UpdatePayment,
     UpdateSettings
 } from '@/services/AdminServices'
 import {
+    addExpense,
     addLesson,
     addMember,
     addPayment,
+    delExpense,
     delLesson,
     delMember,
     delPayment,
     setMembers,
     setSettings,
+    updateExpense,
     updateLesson,
     updateMember,
     updatePayment
@@ -143,6 +149,57 @@ export const DelPaymentAction = async (member_id) => {
     } else {
         toast({
             title: 'Ödeme Silinemedi',
+            description: format(new Date(), 'PPP', { locale: tr })
+        })
+    }
+    return response
+}
+
+export const AddExpenseAction = async (values) => {
+    const response = await AddExpense(values)
+    if (response.ok) {
+        addExpense(response.data)
+        toast({
+            title: 'Gider Eklendi',
+            description: format(new Date(), 'PPP', { locale: tr })
+        })
+    } else {
+        toast({
+            title: 'Gider Eklenemedi',
+            description: format(new Date(), 'PPP', { locale: tr })
+        })
+    }
+    return response
+}
+
+export const UpdateExpenseAction = async (values) => {
+    const response = await UpdateExpense(values)
+    if (response.ok) {
+        updateExpense(response.data._id, response.data)
+        toast({
+            title: 'Gider Düzenlendi',
+            description: format(new Date(), 'PPP', { locale: tr })
+        })
+    } else {
+        toast({
+            title: 'Gider Düzenlenemedi',
+            description: format(new Date(), 'PPP', { locale: tr })
+        })
+    }
+    return response
+}
+
+export const DelExpenseAction = async (member_id) => {
+    const response = await DelExpense(member_id)
+    if (response.ok) {
+        delExpense(response.data._id)
+        toast({
+            title: 'Gider Silindi',
+            description: format(new Date(), 'PPP', { locale: tr })
+        })
+    } else {
+        toast({
+            title: 'Gider Silinemedi',
             description: format(new Date(), 'PPP', { locale: tr })
         })
     }
