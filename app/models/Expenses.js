@@ -4,6 +4,7 @@ const ExpenseSchema = new Schema(
     {
         expenseDate: { type: Date, required: true },
         expenseAmount: { type: Number, required: true },
+        description: { type: String, default: '' },
         author: { type: Schema.Types.ObjectId, ref: 'User', required: true }
     },
     {

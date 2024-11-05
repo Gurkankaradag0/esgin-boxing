@@ -17,13 +17,14 @@ export const POST = async (req) => {
 
         if (!user._doc.isAdmin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-        const { _id, expenseDate, expenseAmount } = await req.json()
+        const { _id, expenseDate, expenseAmount, description } = await req.json()
 
         const expense = await Expense.findOneAndUpdate(
             { _id },
             {
                 expenseDate,
-                expenseAmount
+                expenseAmount,
+                description
             },
             {
                 returnDocument: 'after',

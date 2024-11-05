@@ -17,11 +17,12 @@ export const POST = async (req) => {
 
         if (!user._doc.isAdmin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-        const { expenseDate, expenseAmount } = await req.json()
+        const { expenseDate, expenseAmount, description } = await req.json()
 
         const expense = await Expense.create({
             expenseDate,
             expenseAmount,
+            description,
             author: user._doc._id
         })
 

@@ -12,10 +12,12 @@ import { AddExpenseAction, UpdateExpenseAction } from '@/actions/AdminActions'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import InputField from '@/components/Form/InputField'
+import TextAreaField from '@/components/Form/TextAreaField'
 
 const CreateExpenseSchema = z.object({
     expenseDate: z.date({ required_error: 'Gerekli' }),
-    expenseAmount: z.number().min(1, 'Geçersiz')
+    expenseAmount: z.number().min(1, 'Geçersiz'),
+    description: z.string()
 })
 
 const CreateExpense = ({ trigger = 'Open Modal', triggerClassname, expense }) => {
@@ -28,11 +30,13 @@ const CreateExpense = ({ trigger = 'Open Modal', triggerClassname, expense }) =>
         defaultValues: expense
             ? {
                   expenseDate: new Date(expense.expenseDate),
-                  expenseAmount: expense.expenseAmount
+                  expenseAmount: expense.expenseAmount,
+                  description: expense.description
               }
             : {
                   expenseDate: undefined,
-                  expenseAmount: 0
+                  expenseAmount: 0,
+                  description: ''
               }
     })
 
@@ -72,6 +76,14 @@ const CreateExpense = ({ trigger = 'Open Modal', triggerClassname, expense }) =>
                             portal={false}
                             disabled={disabled}
                         />
+
+                        <TextAreaField
+                            name='description'
+                            form={form}
+                            label='Gider Açıklaması'
+                            disabled={disabled}
+                        />
+
                         <InputField
                             name='expenseAmount'
                             form={form}

@@ -40,6 +40,16 @@ const Expenses = () => {
             )
         },
         {
+            accessorKey: 'description',
+            header: () => (
+                <span className='whitespace-nowrap'>
+                    Gider Açıklaması
+                    <div className='hidden' />
+                </span>
+            ),
+            cell: ({ row }) => row.getValue('description')
+        },
+        {
             accessorKey: 'expenseAmount',
             header: () => (
                 <span className='whitespace-nowrap'>
@@ -103,13 +113,12 @@ const Expenses = () => {
             data={expenses}
             columns={columns}
             filterElement={({ table }) => (
-                // <Input
-                //     placeholder='Üye ismine göre filtrele...'
-                //     value={table.getColumn('member')?.getFilterValue() ?? ''}
-                //     onChange={(event) => table.getColumn('member')?.setFilterValue(event.target.value)}
-                //     className='max-w-sm'
-                // />
-                <></>
+                <Input
+                    placeholder='Gider açıklamasına göre filtrele...'
+                    value={table.getColumn('description')?.getFilterValue() ?? ''}
+                    onChange={(event) => table.getColumn('description')?.setFilterValue(event.target.value)}
+                    className='max-w-sm'
+                />
             )}
         />
     )
