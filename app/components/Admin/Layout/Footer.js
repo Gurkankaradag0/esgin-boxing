@@ -11,9 +11,9 @@ const Footer = () => {
                         match={'Gürkan Karadağ'}
                         render={(val) => (
                             <Link
-                                href='#'
-                                // target='_blank'
-                                // rel='noreferrer'
+                                href='https://github.com/Gurkankaradag0'
+                                target='_blank'
+                                rel='noreferrer'
                                 className='text-destructive hover:underline'
                             >
                                 {val}
