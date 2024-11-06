@@ -12,6 +12,7 @@ import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { DelPaymentAction } from '@/actions/AdminActions'
 import CreatePayment from './Modals/CreatePayment'
+import { PaymentDescriptions, PaymentTypes } from '@/utils/consts'
 
 const Payments = () => {
     const { payments } = useAdminStore()
@@ -38,6 +39,36 @@ const Payments = () => {
                     })}
                 </div>
             )
+        },
+        {
+            accessorKey: 'paymentType',
+            header: () => (
+                <span className='whitespace-nowrap'>
+                    Ödeme Tipi
+                    <div className='hidden' />
+                </span>
+            ),
+            cell: ({ row }) => PaymentTypes.find((_type) => _type.value === row.getValue('paymentType')).label
+        },
+        {
+            accessorKey: 'paymentDescription',
+            header: () => (
+                <span className='whitespace-nowrap'>
+                    Ödeme Açıklaması
+                    <div className='hidden' />
+                </span>
+            ),
+            cell: ({ row }) => PaymentDescriptions.find((desc) => desc.value === row.getValue('paymentDescription')).label
+        },
+        {
+            accessorKey: 'paymentAmount',
+            header: () => (
+                <span className='whitespace-nowrap'>
+                    Ödeme Tutarı
+                    <div className='hidden' />
+                </span>
+            ),
+            cell: ({ row }) => row.getValue('paymentAmount')
         },
         {
             id: 'member',

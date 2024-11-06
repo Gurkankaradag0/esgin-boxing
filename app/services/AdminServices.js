@@ -116,54 +116,6 @@ export const DelPayment = async (_id) => {
     return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
 }
 
-export const GetExpenses = async () => {
-    const res = await fetch('/api/admin/expenses', {
-        method: 'GET',
-        credentials: 'include'
-    })
-
-    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
-}
-
-export const AddExpense = async (values) => {
-    const res = await fetch('/api/admin/expenses/add', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(values)
-    })
-
-    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
-}
-
-export const UpdateExpense = async (values) => {
-    const res = await fetch('/api/admin/expenses/update', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(values)
-    })
-
-    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
-}
-
-export const DelExpense = async (_id) => {
-    const res = await fetch('/api/admin/expenses/del', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ _id })
-    })
-
-    return { data: { ...(await res.json()) }, status: res.status, ok: res.ok }
-}
-
 export const GetLessons = async () => {
     const res = await fetch('/api/admin/lessons', {
         method: 'GET',

@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -13,22 +13,33 @@ import { AddPaymentAction, UpdatePaymentAction } from '@/actions/AdminActions'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { useAdminStore } from '@/store/adminStore'
+import InputField from '@/components/Form/InputField'
+import RadioGroupField from '@/components/Form/RadioGroupField'
+import { PaymentDescriptions, PaymentTypes } from '@/utils/consts'
 
 const CreatePaymentSchema = z.object({
     paymentDate: z.date({
         required_error: 'Gerekli'
     }),
-    member: z
+    paymentType: z
         .string({
             required_error: 'Gerekli'
         })
-        .min(1, 'Seçim Yapınız')
+        .min(1, 'Seçim Yapınız'),
+    paymentDescription: z
+        .string({
+            required_error: 'Gerekli'
+        })
+        .min(1, 'Seçim Yapınız'),
+    paymentAmount: z.number().min(1, 'Geçersiz'),
+    member: z.optional(z.string())
 })
 
 const CreatePayment = ({ trigger = 'Open Modal', triggerClassname, payment }) => {
     const [disabled, setDisabled] = useState(false)
     const [error, setError] = useState('')
     const [open, setOpen] = useState(false)
+    const [oldPaymentAmount, setOldPaymentAmount] = useState(payment?.paymentAmount ?? 0)
     const { members } = useAdminStore()
 
     const form = useForm({
@@ -36,13 +47,23 @@ const CreatePayment = ({ trigger = 'Open Modal', triggerClassname, payment }) =>
         defaultValues: payment
             ? {
                   paymentDate: new Date(payment.paymentDate),
-                  member: payment.member._id
+                  paymentType: payment.paymentType,
+                  paymentDescription: payment.paymentDescription,
+                  paymentAmount: payment.paymentAmount,
+                  member: payment.member?._id ?? ''
               }
             : {
                   paymentDate: undefined,
+                  paymentType: '',
+                  paymentDescription: '',
+                  paymentAmount: 0,
                   member: ''
               }
     })
+
+    const paymentDescription = useWatch({ control: form.control, name: 'paymentDescription' })
+    const paymentAmount = useWatch({ control: form.control, name: 'paymentAmount' })
+    const member = useWatch({ control: form.control, name: 'member' })
 
     const onSubmit = async (values) => {
         setError('')
@@ -55,6 +76,17 @@ const CreatePayment = ({ trigger = 'Open Modal', triggerClassname, payment }) =>
         }
         setDisabled(false)
     }
+
+    useEffect(() => {
+        if (paymentDescription === 'Member') {
+            if (!member) return
+            setOldPaymentAmount(paymentAmount)
+            form.setValue('paymentAmount', members.find((m) => m._id === member).amountToBePaid)
+        } else {
+            form.setValue('paymentAmount', oldPaymentAmount)
+            form.setValue('member', '')
+        }
+    }, [paymentDescription, member])
 
     return (
         <Dialog
@@ -81,14 +113,38 @@ const CreatePayment = ({ trigger = 'Open Modal', triggerClassname, payment }) =>
                             disabled={disabled}
                         />
                         <SelectField
-                            name='member'
+                            name='paymentType'
                             form={form}
-                            label='Üye'
-                            values={members.map((member) => ({
-                                value: member._id,
-                                label: member.name
-                            }))}
+                            label='Ödeme Tipi'
+                            values={PaymentTypes}
                             disabled={disabled}
+                        />
+                        <RadioGroupField
+                            name='paymentDescription'
+                            form={form}
+                            label='Ödeme Açıklaması'
+                            values={PaymentDescriptions}
+                            disabled={disabled}
+                        />
+                        {paymentDescription === 'Member' && (
+                            <SelectField
+                                name='member'
+                                form={form}
+                                label='Üye'
+                                values={members.map((member) => ({
+                                    value: member._id,
+                                    label: member.name
+                                }))}
+                                disabled={disabled}
+                            />
+                        )}
+                        <InputField
+                            name='paymentAmount'
+                            form={form}
+                            label='Ödeme Tutarı'
+                            type='number'
+                            min={0}
+                            disabled={disabled || !paymentDescription || paymentDescription === 'Member'}
                         />
 
                         <Button

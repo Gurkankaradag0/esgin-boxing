@@ -5,13 +5,11 @@ const useAdmin = create((set, get) => ({
     settings: {},
     members: [],
     payments: [],
-    expenses: [],
     lessons: [],
     fetching: false,
     setSettings: (settings) => set({ settings }),
     setMembers: (members) => set({ members }),
     setPayments: (payments) => set({ payments }),
-    setExpenses: (expenses) => set({ expenses }),
     setLessons: (lessons) => set({ lessons }),
     addMember: (member) => {
         const { members } = get()
@@ -56,26 +54,6 @@ const useAdmin = create((set, get) => ({
         const { payments } = get()
         set({ payments: payments.filter((payment) => payment._id !== paymentId) })
     },
-    addExpense: (expense) => {
-        const { expenses } = get()
-        set({ expenses: [...expenses, expense] })
-    },
-    updateExpense: (expenseId, updatedFields) => {
-        const { expenses } = get()
-        set({
-            expenses: [
-                ...expenses.filter((expense) => expense._id !== expenseId),
-                {
-                    ...expenses.find((expense) => expense._id === expenseId),
-                    ...updatedFields
-                }
-            ]
-        })
-    },
-    delExpense: (expenseId) => {
-        const { expenses } = get()
-        set({ expenses: expenses.filter((expense) => expense._id !== expenseId) })
-    },
     addLesson: (lesson) => {
         const { lessons } = get()
         set({ lessons: [...lessons, lesson] })
@@ -109,7 +87,6 @@ export const useAdminStore = () =>
             settings: state.settings,
             members: state.members,
             payments: state.payments,
-            expenses: state.expenses,
             lessons: state.lessons,
             fetching: state.fetching
         }))
@@ -121,7 +98,6 @@ export const getAdminStore = () => useAdmin.getState()
 export const setSettings = useAdmin.getState().setSettings
 export const setMembers = useAdmin.getState().setMembers
 export const setPayments = useAdmin.getState().setPayments
-export const setExpenses = useAdmin.getState().setExpenses
 export const setLessons = useAdmin.getState().setLessons
 export const addMember = useAdmin.getState().addMember
 export const updateMember = useAdmin.getState().updateMember
@@ -129,9 +105,6 @@ export const delMember = useAdmin.getState().delMember
 export const addPayment = useAdmin.getState().addPayment
 export const updatePayment = useAdmin.getState().updatePayment
 export const delPayment = useAdmin.getState().delPayment
-export const addExpense = useAdmin.getState().addExpense
-export const updateExpense = useAdmin.getState().updateExpense
-export const delExpense = useAdmin.getState().delExpense
 export const addLesson = useAdmin.getState().addLesson
 export const updateLesson = useAdmin.getState().updateLesson
 export const delLesson = useAdmin.getState().delLesson

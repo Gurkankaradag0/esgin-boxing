@@ -30,13 +30,6 @@ export const ADMIN_SIDEBAR_ITEMS = [
         sidebar: true
     },
     {
-        name: 'expenses',
-        label: 'Giderler',
-        pathname: '/admin/expenses',
-        icon: <HandCoins size={24} />,
-        sidebar: true
-    },
-    {
         name: 'settings',
         label: 'Ayarlar',
         pathname: '/admin/settings',
@@ -49,5 +42,39 @@ export const ADMIN_SIDEBAR_ITEMS = [
         pathname: '/admin/user',
         icon: <Settings size={24} />,
         sidebar: false
+    }
+]
+
+export const PaymentTypes = [
+    {
+        label: 'Gelir',
+        value: 'Income'
+    },
+    {
+        label: 'Gider',
+        value: 'Expense'
+    }
+]
+
+export const PaymentDescriptions = [
+    {
+        label: 'Öğrenci',
+        value: 'Member'
+    },
+    {
+        label: 'Kira',
+        value: 'Rent'
+    },
+    {
+        label: 'Fatura',
+        value: 'Invoice'
+    },
+    {
+        label: 'Ürün',
+        value: 'Product'
+    },
+    {
+        label: 'Diğer',
+        value: 'Other'
     }
 ]

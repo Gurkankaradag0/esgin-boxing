@@ -18,20 +18,23 @@ export const POST = async (req) => {
 
         if (!user._doc.isAdmin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-        const { paymentDate, member } = await req.json()
+        const values = await req.json()
+
+        !values.member && delete values.member
 
         const payment = await Payment.create({
-            paymentDate,
-            member,
+            ...values,
             author: user._doc._id
         })
 
-        const memberDoc = await Member.findById(member).select('_id name')
+        const result = {
+            ...payment._doc,
+            author: { _id: user._id, name: user.name, email: user.email }
+        }
 
-        return NextResponse.json(
-            { ...payment._doc, member: memberDoc, author: { _id: user._id, name: user.name, email: user.email } },
-            { status: 200 }
-        )
+        values.member && (result.member = await Member.findById(values.member).select('_id name'))
+
+        return NextResponse.json(result, { status: 200 })
     } catch (err) {
         console.log(err)
         return NextResponse.json({ error: 'Invalid token' }, { status: 401 })

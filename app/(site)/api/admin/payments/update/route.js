@@ -17,22 +17,17 @@ export const POST = async (req) => {
 
         if (!user._doc.isAdmin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-        const { _id, paymentDate, member } = await req.json()
+        const values = await req.json()
+        const _id = values._id
+        delete values._id
 
-        const payment = await Payment.findOneAndUpdate(
-            { _id },
-            {
-                paymentDate,
-                member
-            },
-            {
-                returnDocument: 'after',
-                populate: [
-                    { path: 'member', select: '_id name' },
-                    { path: 'author', select: '_id name email' }
-                ]
-            }
-        )
+        const payment = await Payment.findOneAndUpdate({ _id }, values, {
+            returnDocument: 'after',
+            populate: [
+                { path: 'member', select: '_id name' },
+                { path: 'author', select: '_id name email' }
+            ]
+        })
 
         return NextResponse.json({ ...payment._doc }, { status: 200 })
     } catch (err) {
