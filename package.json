@@ -40,6 +40,7 @@
         "react-hook-form": "^7.53.1",
         "react-live-clock": "^6.1.24",
         "react-resizable-panels": "^2.1.6",
+        "recharts": "^2.13.3",
         "tailwind-merge": "^2.5.4",
         "tailwindcss-animate": "^1.0.7",
         "zod": "^3.23.8",
