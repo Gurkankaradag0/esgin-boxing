@@ -14,7 +14,7 @@ const Dashboard = () => {
 
     const last12MonthData = useMemo(() => {
         const momentDate = {}
-        for (const payment of payments) {
+        for (const payment of payments.sort((a, b) => new Date(a.paymentDate).getTime() - new Date(b.paymentDate).getTime())) {
             const date = new Date(payment.paymentDate).toLocaleDateString('tr-TR', {
                 month: 'long'
             })
