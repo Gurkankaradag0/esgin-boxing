@@ -79,7 +79,6 @@ const CreateMember = ({ trigger = 'Open Modal', triggerClassname, member }) => {
     }
 
     useEffect(() => {
-        console.log(courseType)
         if (courseType === 'group') {
             setOldAmountToBePaid(amountToBePaid)
             form.setValue('amountToBePaid', settings.groupPrice)
