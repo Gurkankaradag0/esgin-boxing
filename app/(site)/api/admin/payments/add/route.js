@@ -36,7 +36,6 @@ export const POST = async (req) => {
 
         return NextResponse.json(result, { status: 200 })
     } catch (err) {
-        console.log(err)
-        return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
+        return NextResponse.json({ error: 'Invalid token', message: err.message }, { status: 401 })
     }
 }

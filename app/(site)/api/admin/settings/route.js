@@ -29,8 +29,7 @@ export const GET = async (req) => {
 
         return NextResponse.json({ settings: { ...settings._doc }, members }, { status: 200 })
     } catch (err) {
-        console.error(err)
-        return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
+        return NextResponse.json({ error: 'Invalid token', message: err.message }, { status: 401 })
     }
 }
 
@@ -57,6 +56,6 @@ export const POST = async (req) => {
 
         return NextResponse.json({ settings: { ...settings._doc }, members }, { status: 200 })
     } catch (err) {
-        return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
+        return NextResponse.json({ error: 'Invalid token', message: err.message }, { status: 401 })
     }
 }

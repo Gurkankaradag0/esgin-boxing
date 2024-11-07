@@ -25,6 +25,6 @@ export const GET = async (req) => {
 
         return NextResponse.json({ members }, { status: 200 })
     } catch (err) {
-        return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
+        return NextResponse.json({ error: 'Invalid token', message: err.message }, { status: 401 })
     }
 }
