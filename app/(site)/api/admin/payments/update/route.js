@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 
 import dbConnect from '@/lib/mongodb'
 import User from '@/models/User'
+import Member from '@/models/Members'
 import Payment from '@/models/Payments'
 
 export const POST = async (req) => {
