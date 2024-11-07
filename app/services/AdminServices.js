@@ -1,6 +1,7 @@
 export const GetSettings = async () => {
     const res = await fetch('/api/admin/settings', {
         method: 'GET',
+        cache: 'no-store',
         credentials: 'include'
     })
 
@@ -10,6 +11,7 @@ export const GetSettings = async () => {
 export const UpdateSettings = async (values) => {
     const res = await fetch('/api/admin/settings', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
@@ -23,6 +25,7 @@ export const UpdateSettings = async (values) => {
 export const GetMembers = async () => {
     const res = await fetch('/api/admin/members', {
         method: 'GET',
+        cache: 'no-store',
         credentials: 'include'
     })
 
@@ -32,6 +35,7 @@ export const GetMembers = async () => {
 export const AddMember = async (values) => {
     const res = await fetch('/api/admin/members/add', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
@@ -45,6 +49,7 @@ export const AddMember = async (values) => {
 export const UpdateMember = async (values) => {
     const res = await fetch('/api/admin/members/update', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
@@ -58,6 +63,7 @@ export const UpdateMember = async (values) => {
 export const DelMember = async (_id) => {
     const res = await fetch('/api/admin/members/del', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
@@ -71,6 +77,7 @@ export const DelMember = async (_id) => {
 export const GetPayments = async () => {
     const res = await fetch('/api/admin/payments', {
         method: 'GET',
+        cache: 'no-store',
         credentials: 'include'
     })
 
@@ -80,6 +87,7 @@ export const GetPayments = async () => {
 export const AddPayment = async (values) => {
     const res = await fetch('/api/admin/payments/add', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
@@ -93,6 +101,7 @@ export const AddPayment = async (values) => {
 export const UpdatePayment = async (values) => {
     const res = await fetch('/api/admin/payments/update', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
@@ -106,6 +115,7 @@ export const UpdatePayment = async (values) => {
 export const DelPayment = async (_id) => {
     const res = await fetch('/api/admin/payments/del', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
@@ -119,6 +129,7 @@ export const DelPayment = async (_id) => {
 export const GetLessons = async () => {
     const res = await fetch('/api/admin/lessons', {
         method: 'GET',
+        cache: 'no-store',
         credentials: 'include'
     })
 
@@ -128,6 +139,7 @@ export const GetLessons = async () => {
 export const AddLesson = async (values) => {
     const res = await fetch('/api/admin/lessons/add', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
@@ -141,6 +153,7 @@ export const AddLesson = async (values) => {
 export const UpdateLesson = async (values) => {
     const res = await fetch('/api/admin/lessons/update', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
@@ -154,6 +167,7 @@ export const UpdateLesson = async (values) => {
 export const DelLesson = async (_id) => {
     const res = await fetch('/api/admin/lessons/del', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'

@@ -1,6 +1,7 @@
 export const GetMe = async () => {
     const res = await fetch('/api/auth/me', {
         method: 'GET',
+        cache: 'no-store',
         credentials: 'include'
     })
 
@@ -10,6 +11,7 @@ export const GetMe = async () => {
 export const Register = async (data) => {
     const res = await fetch('/api/auth/register', {
         method: 'POST',
+        cache: 'no-store',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -22,6 +24,7 @@ export const Register = async (data) => {
 export const Login = async (data) => {
     const res = await fetch('/api/auth/login', {
         method: 'POST',
+        cache: 'no-store',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -34,6 +37,7 @@ export const Login = async (data) => {
 export const Logout = async () => {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
+        cache: 'no-store',
         credentials: 'include'
     })
 
